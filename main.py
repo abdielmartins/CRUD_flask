@@ -3,20 +3,24 @@ import json, csv, os.path
 
 FIELDNAMES_DEFAULT = ["id", "name", "intelligence", "power", "strength", "agility"]
 
-# def id_generator():
-#     num = 0
-#     while True:
-#         yield num
-#         num += 1
 
+def id_generator():
+    FIELDNAMES_DEFAULT = ["id"]
 
-def id_generator(filename):
-    current_id = 1
-    with open(filename) as csv_file:
+    current_id = 0
+    with open("id.csv") as csv_file:
         csv_reader = csv.DictReader(csv_file)
-        for _ in csv_reader:
-            current_id += 1
-        return current_id
+        for row in csv_reader:
+            if int(row["id"]):
+                current_id = int(row["id"])
+
+    with open("id.csv", "w") as csv_file:
+        csv_writer = csv.DictWriter(csv_file, fieldnames=FIELDNAMES_DEFAULT)
+        csv_writer.writeheader()
+        new_id = {"id": current_id + 1}
+        csv_writer.writerow(new_id)
+
+    return current_id
 
 
 def fieldnames_generate(filename: str):
@@ -42,7 +46,7 @@ def create_character(
 ) -> dict:
 
     FIELDNAMES_DEFAULT = ["id", "name", "intelligence", "power", "strength", "agility"]
-    character_id = id_generator(filename)
+    character_id = id_generator()
 
     if not fieldnames_validate(filename):
         fieldnames_generate(filename)
