@@ -1,87 +1,170 @@
-# Project Title
+# CRUD Flask
 
-One Paragraph of project description goes here
+Primeira API criada por mim utilizando Flask. Utilizando os conceitos adquiridos até agora na Kenzie Academy Brasil com um pouco de curiosidade consegui fazer uma API bem simples utilizando Flask. A API consiste num CRUD que persiste os dados em um arquivo CSV.
 
-## Getting Started
+<br>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+# Pré requisitos
 
-### Prerequisites
-
-What things you need to install the software and how to install them
+## Python VENV
 
 ```
-Give examples
+$ python3 -m venv venv
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+## Ativar VENV
 
 ```
-Give the example
+$ . venv/bin/activate
 ```
 
-And repeat
+## Flask
 
 ```
-until finished
+$ pip install Flask
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+<br>
 
-## Running the tests
+# Rotas
 
-Explain how to run the automated tests for this system
+Abaixo segue descrição das rotas e das requisições. Nenhuma das rotas necessita de autenticação.
 
-### Break down into end to end tests
+## Listando personagens
 
-Explain what these tests test and why
+`GET / - FORMATO DA RESPOSTA - STATUS 200`
 
+```json
+{
+  "data": [
+    {
+      "agility": 8,
+      "id": 1,
+      "intelligence": 8,
+      "name": "Hulk",
+      "power": 7,
+      "strength": 10
+    },
+    {
+      "agility": 4,
+      "id": 2,
+      "intelligence": 4,
+      "name": "Superman",
+      "power": 5,
+      "strength": 5
+    }
+  ],
+  "message": "Characters found"
+}
 ```
-Give an example
+
+## Listando personagens específicos
+
+`GET /character - FORMATO DA REQUISIÇÃO`
+
+```json
+{
+  "character_id": 2
+}
 ```
 
-### And coding style tests
+`GET /character - FORMATO DA RESPOSTA - STATUS 200`
 
-Explain what these tests test and why
-
+```json
+{
+  "data": {
+    "agility": 4,
+    "id": 2,
+    "intelligence": 4,
+    "name": "Superman",
+    "power": 10,
+    "strength": 10
+  },
+  "message": "Character found"
+}
 ```
-Give an example
+
+## Criando personagens
+
+`POST /create - FORMATO DA REQUISIÇÃO`
+
+```json
+{
+  "name": "Superman",
+  "intelligence": 4,
+  "power": 10,
+  "strength": 10,
+  "agility": 4
+}
 ```
 
-## Deployment
+`POST /create - FORMATO DA RESPOSTA - STATUS 200`
 
-Add additional notes about how to deploy this on a live system
+```json
+{
+  "data": {
+    "agility": 4,
+    "id": 2,
+    "intelligence": 4,
+    "name": "Superman",
+    "power": 10,
+    "strength": 10
+  },
+  "message": "Character created"
+}
+```
 
-## Built With
+## Atualizando personagens
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+`PATCH /update - FORMATO DA REQUISIÇÃO`
 
-## Contributing
+```json
+{
+  "character_id": 2,
+  "power": 5,
+  "strength": 5
+}
+```
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+`PATCH /update - FORMATO DA RESPOSTA - STATUS 200`
 
-## Versioning
+```json
+{
+  "data": {
+    "agility": 4,
+    "id": 2,
+    "intelligence": 4,
+    "name": "Superman",
+    "power": 5,
+    "strength": 5
+  },
+  "message": "Character updated"
+}
+```
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+## Deletando personagens
 
-## Authors
+`DELETE /delete - FORMATO DA REQUISIÇÃO`
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+```json
+{
+  "character_id": 2
+}
+```
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+`DELETE /delete - FORMATO DA RESPOSTA - STATUS 200`
 
-## License
+```json
+{
+  "data": true,
+  "message": "Character deleted"
+}
+```
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+# Feito com
 
-## Acknowledgments
+![Flask](https://img.shields.io/badge/-Flask-05122A?style=flat&logo=flask)&nbsp;
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+# Autor
+
+Feito com ♥ por **Abdiel Martins** - [abdielmartins](https://github.com/abdielmartins)
